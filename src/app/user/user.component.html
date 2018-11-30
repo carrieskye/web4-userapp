@@ -1,20 +1,75 @@
-<table mdbTable small="true" hover="true">
-    <thead class="black white-text">
-    <tr>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Email</th>
-        <th>Gender</th>
-        <th>Age</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr mdbTableCol *ngFor="let user of users">
-        <td>{{user.firstName}}</td>
-        <td>{{user.lastName}}</td>
-        <td>{{user.email}}</td>
-        <td>{{user.gender}}</td>
-        <td>{{user.age}}</td>
-    </tr>
-    </tbody>
-</table>
+<div class="card">
+    <h3>All users</h3>
+    <table mdbTable small="true" hover="true">
+        <thead class="black white-text">
+        <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>Age</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr mdbTableCol (click)="selectUser(user)" *ngFor="let user of users">
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.gender}}</td>
+            <td>{{user.age}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="card" *ngIf="selectedUser">
+    <h3>Edit user</h3>
+    <form (submit)="updateUser()">
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="md-form form-group">
+                    <input mdbInputDirective type="text" class="form-control" id="firstName" name="firstName"
+                           placeholder="First name" [(ngModel)]="selectedUser.firstName">
+                    <label for="firstName">First name</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="md-form form-group">
+                    <input mdbInputDirective type="text" class="form-control" id="lastName" name="lastName"
+                           placeholder="Last name" [(ngModel)]="selectedUser.lastName">
+                    <label for="lastName">Last name</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="md-form form-group">
+                    <input mdbInputDirective type="email" class="form-control" id="email" name="email"
+                           placeholder="john.doe@gmail.com" [(ngModel)]="selectedUser.email">
+                    <label for="email">Email</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                <div class="md-form form-group">
+                    <input mdbInputDirective type="number" class="form-control" id="age" name="age"
+                           placeholder="18" [(ngModel)]="selectedUser.age">
+                    <label for="age">Age</label>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="md-form form-group">
+                    <input mdbInputDirective type="text" class="form-control" id="gender" name="gender"
+                           placeholder="M" [(ngModel)]="selectedUser.gender">
+                    <label for="gender">Gender</label>
+                </div>
+            </div>
+
+        </div>
+        <button type="submit" class="btn btn-primary btn-md">Save</button>
+    </form>
+</div>
